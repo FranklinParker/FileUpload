@@ -1,2 +1,10 @@
 /nodeserver/node_modules
 /nodeserver/public/images
+*.iml
+.idea/jsLibraryMappings.xml
+.idea/jsLinters/jslint.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/watcherTasks.xml
+.idea/workspace.xml
