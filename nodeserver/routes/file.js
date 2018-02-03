@@ -4,7 +4,6 @@ var multer = require('multer');
 const fs = require('fs');
 const upload = multer({dest: '../public/images'});
 
-var XLSX = require('xlsx')
 
 
 const parser = require('../service/parser').parsers;
