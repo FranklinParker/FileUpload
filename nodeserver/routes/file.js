@@ -49,7 +49,6 @@ router.post('/parseExcel', upload.single('file'), function (req, res, next) {
 
 router.post('/getExcelSheets', upload.single('file'), function (req, res, next) {
 	const mimeTypeExcel = mimeTypesExcel.find(mime => mime === req.file.mimetype);
-	console.log('mimeType:' + mimeTypeExcel);
 	if (mimeTypeExcel) {
 		parser.getExcelSheetNames(req.file.path)
 			.then((sheetNames) => {
