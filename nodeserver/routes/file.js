@@ -32,6 +32,21 @@ router.post('/', upload.single('file'), function (req, res, next) {
 });
 
 
+router.post('/parseExcel', upload.single('file'), function (req, res, next) {
+	console.log('req.file', req.file);
+	console.log('req.body.sheetName:' + req.body.sheetName);
+	parser.processExcelToJson(req.file.path)
+		.then((data) => {
+				//console.log('found Data', data)
+				res.send({message: `File Type ${req.file.mimetype} Parsed`});
+			}, (err) => {
+				console.log('err', err);
+				res.send({message: 'failed '});
+			}
+		);
+});
+
+
 router.post('/getExcelSheets', upload.single('file'), function (req, res, next) {
 	const mimeTypeExcel = mimeTypesExcel.find(mime => mime === req.file.mimetype);
 	console.log('mimeType:' + mimeTypeExcel);
@@ -46,7 +61,7 @@ router.post('/getExcelSheets', upload.single('file'), function (req, res, next) 
 					});
 				}, (err) => {
 					console.log('err', err);
-					res.send({message: 'failed ',result: 'success'});
+					res.send({message: 'failed ', result: 'success'});
 				}
 			);
 	} else {

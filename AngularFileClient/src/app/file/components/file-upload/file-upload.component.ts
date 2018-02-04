@@ -9,7 +9,8 @@ import {FileUploadService} from "../../service/file-upload.service";
 export class FileUploadComponent implements OnInit {
   file: File;
   excelSheetNames = [];
-  selectedSheet:string;
+  selectedSheet: string;
+
   constructor(private fileUploadService: FileUploadService) {
   }
 
@@ -18,13 +19,25 @@ export class FileUploadComponent implements OnInit {
 
   }
 
+  /**
+   * event when file is selected
+   *
+   * @param {FileList} files
+   */
   handleFileInput(files: FileList) {
     this.file = files.item(0);
     console.log('file change', this.file);
-    if( this.mimeTypeExcel){
+    if (this.mimeTypeExcel) {
       this.getSheetNames();
 
     }
+  }
+
+  parseExcel() {
+    this.fileUploadService.parseExcel(this.file, this.selectedSheet)
+      .subscribe((resp) => {
+        alert(resp['message']);
+      });
   }
 
   uploadFile() {
@@ -47,7 +60,7 @@ export class FileUploadComponent implements OnInit {
       if (resp.result === 'success') {
         alert('Got sheet names:' + resp.sheetNames);
         this.excelSheetNames = resp.sheetNames;
-      }else{
+      } else {
         alert('error getting sheet names');
       }
     });

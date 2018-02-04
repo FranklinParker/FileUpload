@@ -12,33 +12,29 @@
         </div>
       </div>
     </div>
-    <div class="row" *ngIf="mimeTypeExcel">
-      <div class="col">
-        <div class="form-group">
-          <label for="sheetName">Select Sheet</label>
-          <select id="sheetName" name="sheetName" [(ngModel)]="selectedSheet">
-            <option *ngFor="let sheetName of excelSheetNames">{{sheetName}}</option>
-          </select>
+    <div  *ngIf="mimeTypeExcel">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="sheetName">Select Sheet</label>
+            <select id="sheetName" name="sheetName" [(ngModel)]="selectedSheet">
+              <option *ngFor="let sheetName of excelSheetNames" value="{{sheetName}}">{{sheetName}}</option>
+            </select>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="row" *ngIf="file">
-      <div class="col">
-        <label>Mime type {{file.type}}</label>
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-primary" type="button" (click)="parseExcel()">Parse </button>
+        </div>
       </div>
     </div>
   </div>
   <div class="card-footer">
     <div class="row">
       <div class="col">
-        <button class="btn btn-primary" type="button" (click)="uploadFile()">Upload</button>
+        <label>Mime type: {{file && file.type?file.type:' None Selected'}}</label>
       </div>
     </div>
-  </div>
-</div>
-<div class="card m-2" *ngIf="mimeTypeExcel">
-  <div class="card-body">
-    <button class="btn btn-primary" type="button" (click)="getSheetNames()">Get Sheet Names</button>
   </div>
 </div>

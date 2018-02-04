@@ -22,4 +22,13 @@ export class FileUploadService {
     return this.http.post(this.apiUrl+'/file/getExcelSheets', formData);
 
   }
+
+  parseExcel(file:File, sheetName:string){
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('sheetName', sheetName);
+    return this.http.post(this.apiUrl+'/file/parseExcel', formData);
+
+
+  }
 }
