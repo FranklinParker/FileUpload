@@ -23,7 +23,8 @@ export class FileUploadComponent implements OnInit {
     console.log('uploadFile', this.file);
     if(this.file) {
       this.fileUploadService.uploadFile(this.file).subscribe((resp) => {
-        console.log('upload ', resp)
+        console.log('upload ', resp);
+        alert(resp.message);
       });
     }else{
       alert('Please select a file');
