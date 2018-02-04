@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FileUploadService} from "../../service/file-upload.service";
 
 @Component({
@@ -7,8 +7,10 @@ import {FileUploadService} from "../../service/file-upload.service";
   styleUrls: ['./file-upload.component.css']
 })
 export class FileUploadComponent implements OnInit {
-  file:File;
-  constructor(private fileUploadService:FileUploadService) { }
+  file: File;
+
+  constructor(private fileUploadService: FileUploadService) {
+  }
 
   ngOnInit() {
 
@@ -19,18 +21,37 @@ export class FileUploadComponent implements OnInit {
     this.file = files.item(0);
     console.log('file change', this.file);
   }
-  uploadFile(){
-    console.log('uploadFile', this.file);
-    if(this.file) {
+
+  uploadFile() {
+    if (this.file) {
       this.fileUploadService.uploadFile(this.file).subscribe((resp) => {
         console.log('upload ', resp);
         alert(resp.message);
       });
-    }else{
+    } else {
       alert('Please select a file');
     }
   }
 
+  /**
+   *
+   *
+   */
+  getSheetNames() {
+    this.fileUploadService.getSheetNames(this.file).subscribe((resp) => {
+      if (resp.result === 'success') {
+        alert('Got sheet names:' + resp.sheetNames);
+      }else{
+        alert('error getting sheet names');
+      }
+    });
+  }
+
+  get mimeTypeExcel() {
+
+    return this.file
+      && this.file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+  }
 
 
 }

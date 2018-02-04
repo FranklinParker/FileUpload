@@ -1,15 +1,29 @@
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <div class="form-group">
-        <label for="upload">Upload File</label>
-        <input type="file" name="upload" id="upload" class="form-control"  (change)="handleFileInput($event.target.files)">
+<div class="card m-2">
+  <div class="card-header">
+    <h2>Select File</h2>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="upload">Upload File</label>
+          <input type="file" name="upload" id="upload" class="form-control"
+                 (change)="handleFileInput($event.target.files)">
+        </div>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col">
-      <button class="btn btn-primary" type="button" (click)="uploadFile()" >Upload</button>
+  <div class="card-footer">
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-primary" type="button" (click)="uploadFile()">Upload</button>
+      </div>
     </div>
+  </div>
+
+</div>
+<div class="card m-2" *ngIf="mimeTypeExcel">
+  <div class="card-body">
+    <button class="btn btn-primary" type="button" (click)="getSheetNames()">Get Sheet Names</button>
   </div>
 </div>
