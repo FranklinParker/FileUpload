@@ -12,6 +12,22 @@
         </div>
       </div>
     </div>
+    <div class="row" *ngIf="mimeTypeExcel">
+      <div class="col">
+        <div class="form-group">
+          <label for="sheetName">Select Sheet</label>
+          <select id="sheetName" name="sheetName" [(ngModel)]="selectedSheet">
+            <option *ngFor="let sheetName of excelSheetNames">{{sheetName}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="file">
+      <div class="col">
+        <label>Mime type {{file.type}}</label>
+      </div>
+    </div>
   </div>
   <div class="card-footer">
     <div class="row">
@@ -20,7 +36,6 @@
       </div>
     </div>
   </div>
-
 </div>
 <div class="card m-2" *ngIf="mimeTypeExcel">
   <div class="card-body">

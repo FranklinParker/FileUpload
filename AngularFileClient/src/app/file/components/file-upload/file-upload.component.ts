@@ -8,7 +8,8 @@ import {FileUploadService} from "../../service/file-upload.service";
 })
 export class FileUploadComponent implements OnInit {
   file: File;
-
+  excelSheetNames = [];
+  selectedSheet:string;
   constructor(private fileUploadService: FileUploadService) {
   }
 
@@ -20,6 +21,10 @@ export class FileUploadComponent implements OnInit {
   handleFileInput(files: FileList) {
     this.file = files.item(0);
     console.log('file change', this.file);
+    if( this.mimeTypeExcel){
+      this.getSheetNames();
+
+    }
   }
 
   uploadFile() {
@@ -41,6 +46,7 @@ export class FileUploadComponent implements OnInit {
     this.fileUploadService.getSheetNames(this.file).subscribe((resp) => {
       if (resp.result === 'success') {
         alert('Got sheet names:' + resp.sheetNames);
+        this.excelSheetNames = resp.sheetNames;
       }else{
         alert('error getting sheet names');
       }
