@@ -12,6 +12,8 @@ export class FileUploadComponent implements OnInit {
   file: File;
   excelSheetNames = [];
   selectedSheet: string;
+  mimeTypesExcel = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    ,'application/vnd.ms-excel'];
 
   constructor(private fileUploadService: FileUploadService,
               private dialogService: MatDialog) {
@@ -78,8 +80,20 @@ export class FileUploadComponent implements OnInit {
   get mimeTypeExcel() {
 
     return this.file
-      && this.file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+      && this.isFindMimeTypeExcel();
+    //&& this.file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
   }
+
+  isFindMimeTypeExcel():boolean{
+    if(!this.file){
+      return false;
+    }
+    const typeExcelFound = this.mimeTypesExcel.find((type) => type ===this.file.type );
+    console.log(typeExcelFound);
+    return typeExcelFound!==null;
+
+  }
+
 
 
 }
