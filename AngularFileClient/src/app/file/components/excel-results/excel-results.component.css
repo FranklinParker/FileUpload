@@ -1,0 +1,48 @@
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.filter-control{
+  color: white;
+}
+
+.example-header {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  padding-left: 24px;
+  font-size: 20px;
+  background: lightgreen;
+}
+
+.mat-table {
+  display: table;
+  width: 100%;
+}
+
+.mat-table > .mat-header-row, .mat-table > .mat-row {
+  display: table-row;
+  padding: 5px;
+  border: none;
+}
+
+.mat-table > .mat-header-row > .mat-header-cell,
+.mat-table > .mat-row > .mat-cell {
+  display: table-cell;
+  height: 48px;
+  vertical-align: middle;
+  horizontal-align: left;
+  padding: 0 0.5em;
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.highlight{
+  background: #95f455;  /* #eff1f4; */
+}
+.cell-editing{
+  color: blue;
+}

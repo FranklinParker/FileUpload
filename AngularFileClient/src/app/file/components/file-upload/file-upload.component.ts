@@ -41,8 +41,8 @@ export class FileUploadComponent implements OnInit {
       .subscribe((resp) => {
         alert(resp['message']);
         const dialogRef = this.dialogService.open(ExcelResultsComponent, {
-          height: '300px',
-          width: '400px',
+          height: '600px',
+          width: '900px',
           data: {message: 'Test'}
         });
         dialogRef.afterClosed().subscribe((yesNo: string) => {
@@ -56,7 +56,6 @@ export class FileUploadComponent implements OnInit {
     if (this.file) {
       this.fileUploadService.uploadFile(this.file).subscribe((resp) => {
         console.log('upload ', resp);
-        alert(resp.message);
       });
     } else {
       alert('Please select a file');
