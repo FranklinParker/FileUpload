@@ -4,15 +4,26 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
 import {FormsModule} from "@angular/forms";
 import {FileUploadService} from "./service/file-upload.service";
 import {HttpClientModule} from "@angular/common/http";
+import { ExcelResultsComponent } from './components/excel-results/excel-results.component';
+import {AngularMaterialModule} from "../angular-material/angular-material.module";
+import {MatDialog, MatDialogRef} from "@angular/material";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularMaterialModule,
+    BrowserAnimationsModule
+
   ],
-  declarations: [FileUploadComponent],
+  declarations: [FileUploadComponent, ExcelResultsComponent],
   exports: [FileUploadComponent],
-  providers:[FileUploadService]
+  providers:[FileUploadService,
+    MatDialog],
+  entryComponents: [
+    ExcelResultsComponent
+  ],
 })
 export class FileModule { }

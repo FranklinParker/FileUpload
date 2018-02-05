@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FileUploadService} from "../../service/file-upload.service";
+import {MatDialog} from "@angular/material";
+import {ExcelResultsComponent} from "../excel-results/excel-results.component";
 
 @Component({
   selector: 'app-file-upload',
@@ -11,7 +13,8 @@ export class FileUploadComponent implements OnInit {
   excelSheetNames = [];
   selectedSheet: string;
 
-  constructor(private fileUploadService: FileUploadService) {
+  constructor(private fileUploadService: FileUploadService,
+              private dialogService: MatDialog) {
   }
 
   ngOnInit() {
@@ -37,6 +40,15 @@ export class FileUploadComponent implements OnInit {
     this.fileUploadService.parseExcel(this.file, this.selectedSheet)
       .subscribe((resp) => {
         alert(resp['message']);
+        const dialogRef = this.dialogService.open(ExcelResultsComponent, {
+          height: '300px',
+          width: '400px',
+          data: {message: 'Test'}
+        });
+        dialogRef.afterClosed().subscribe((yesNo: string) => {
+          console.log('yesNo:' + yesNo);
+
+        });
       });
   }
 
