@@ -1,29 +1,32 @@
 var XLSX = require('xlsx')
 
 
-var processExcelToJson = (file) => {
-  return new Promise(function (resolve, reject) {
-    var workbook = XLSX.readFile(file);
-    var sheet_name_list = workbook.SheetNames;
-    console.log('sheet_name_list', sheet_name_list);
-    console.log('sheet_name_list[0]', sheet_name_list[0]);
+var processExcelToJson = (file, sheetToSelect) => {
+	return new Promise(function (resolve, reject) {
+		var workbook = XLSX.readFile(file);
+		console.log('sheetNameToSelect:' + sheetToSelect);
+		var sheetNames = workbook.SheetNames;
+		console.log('sheetNames', sheetNames);
+		let sheetToParse = sheetNames.find((sheet) => sheet === sheetToSelect);
+		if(!sheetToParse){
+			sheetToParse = sheetNames[0];
+		}
+		console.log('sheetToPase:' +sheetToParse);
+		var xlData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetToParse]);
+		resolve(xlData);
 
-    var xlData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
-    resolve(xlData);
-
-  });
+	});
 };
 
 var getExcelSheetNames = (file) => {
-	return new Promise( (resolve, reject)=> {
+	return new Promise((resolve, reject) => {
 		var workbook = XLSX.readFile(file);
-		resolve( workbook.SheetNames);
-
+		resolve(workbook.SheetNames);
 	});
 };
 
 
 module.exports.parsers = {
-  processExcelToJson,
+	processExcelToJson,
 	getExcelSheetNames
 }

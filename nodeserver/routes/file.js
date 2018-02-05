@@ -34,8 +34,8 @@ router.post('/', upload.single('file'), function (req, res, next) {
 
 router.post('/parseExcel', upload.single('file'), function (req, res, next) {
 	console.log('req.file', req.file);
-	console.log('req.body.sheetName:' + req.body.sheetName);
-	parser.processExcelToJson(req.file.path)
+	const sheetName = req.body.sheetName;
+	parser.processExcelToJson(req.file.path,sheetName)
 		.then((data) => {
 				//console.log('found Data', data)
 				res.send({message: `File Type ${req.file.mimetype} Parsed`});
