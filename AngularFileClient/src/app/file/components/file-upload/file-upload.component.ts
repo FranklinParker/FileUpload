@@ -80,17 +80,17 @@ export class FileUploadComponent implements OnInit {
   get mimeTypeExcel() {
 
     return this.file
-      && this.isFindMimeTypeExcel();
+      && this.isMimeTypeExcel();
     //&& this.file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
   }
 
-  isFindMimeTypeExcel():boolean{
+  isMimeTypeExcel(){
     if(!this.file){
       return false;
     }
     const typeExcelFound = this.mimeTypesExcel.find((type) => type ===this.file.type );
     console.log(typeExcelFound);
-    return typeExcelFound!==null;
+    return typeExcelFound;
 
   }
 
