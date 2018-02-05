@@ -81,7 +81,7 @@ export class FileUploadComponent implements OnInit {
 
     return this.file
       && this.isMimeTypeExcel();
-    //&& this.file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+
   }
 
   isMimeTypeExcel(){
@@ -89,7 +89,6 @@ export class FileUploadComponent implements OnInit {
       return false;
     }
     const typeExcelFound = this.mimeTypesExcel.find((type) => type ===this.file.type );
-    console.log(typeExcelFound);
     return typeExcelFound;
 
   }
