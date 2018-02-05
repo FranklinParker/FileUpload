@@ -39,7 +39,6 @@ export class FileUploadComponent implements OnInit {
   parseExcel() {
     this.fileUploadService.parseExcel(this.file, this.selectedSheet)
       .subscribe((resp) => {
-        alert(resp['message']);
         const dialogRef = this.dialogService.open(ExcelResultsComponent, {
           height: '600px',
           width: '900px',
@@ -69,7 +68,6 @@ export class FileUploadComponent implements OnInit {
   getSheetNames() {
     this.fileUploadService.getSheetNames(this.file).subscribe((resp) => {
       if (resp.result === 'success') {
-        alert('Got sheet names:' + resp.sheetNames);
         this.excelSheetNames = resp.sheetNames;
       } else {
         alert('error getting sheet names');
