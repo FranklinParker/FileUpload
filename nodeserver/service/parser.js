@@ -1,4 +1,4 @@
-var XLSX = require('xlsx')
+var XLSX = require('xlsx');
 
 
 var processExcelToJson = (file, sheetToSelect) => {
@@ -29,4 +29,4 @@ var getExcelSheetNames = (file) => {
 module.exports.parsers = {
 	processExcelToJson,
 	getExcelSheetNames
-}
+};
