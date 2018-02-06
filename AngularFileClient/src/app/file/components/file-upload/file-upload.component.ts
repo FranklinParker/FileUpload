@@ -44,7 +44,7 @@ export class FileUploadComponent implements OnInit {
         const dialogRef = this.dialogService.open(ExcelResultsComponent, {
           height: '600px',
           width: '900px',
-          data: {message: 'Test'}
+          data: resp['data']
         });
         dialogRef.afterClosed().subscribe((yesNo: string) => {
           console.log('yesNo:' + yesNo);

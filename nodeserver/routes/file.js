@@ -9,36 +9,17 @@ const mimeTypesExcel = ['application/vnd.openxmlformats-officedocument.spreadshe
 
 const parser = require('../service/parser').parsers;
 
-router.post('/', upload.single('file'), function (req, res, next) {
-	console.log('req.file', req.file);
-	const mimeTypeExcel = mimeTypesExcel.find(mime => mime === req.file.mimetype);
-	console.log('mimeType:' + mimeTypeExcel);
-	if (mimeTypeExcel) {
-		parser.processExcelToJson(req.file.path)
-			.then((data) => {
-					console.log('found Data', data)
-					res.send({message: `File Type ${req.file.mimetype} Parsed`});
-				}, (err) => {
-					console.log('err', err);
-					res.send({message: 'failed '});
-				}
-			);
-	} else {
-		fs.readFile(req.file.path, 'utf8', function (err, data) {
-			console.log('data', data);
-			res.send({message: `File Type ${req.file.mimetype} cannot be parsed`});
-		});
-	}
-});
-
+/**
+ * parses an excel file
+ *
+ */
 
 router.post('/parseExcel', upload.single('file'), function (req, res, next) {
 	console.log('req.file', req.file);
 	const sheetName = req.body.sheetName;
-	parser.processExcelToJson(req.file.path,sheetName)
+	parser.processExcelToJson(req.file.path, sheetName)
 		.then((data) => {
-				//console.log('found Data', data)
-				res.send({message: `File Type ${req.file.mimetype} Parsed`});
+				res.send({message: `File Type ${req.file.mimetype} Parsed`, data: data});
 			}, (err) => {
 				console.log('err', err);
 				res.send({message: 'failed '});

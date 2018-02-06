@@ -18,6 +18,9 @@ export class ExcelResultsComponent implements OnInit, AfterViewInit {
   constructor(public dialogRef: MatDialogRef<ExcelResultsComponent>,
               @Inject(MAT_DIALOG_DATA) data: any) {
     this.data = data;
+    this.displayedColumns =  Object.keys(this.data[0]);
+    this.dataSource = new MatTableDataSource<any>(this.data);
+
   }
 
 
@@ -27,8 +30,8 @@ export class ExcelResultsComponent implements OnInit, AfterViewInit {
    * be able to query its view for the initialized paginator.
    */
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+    //this.dataSource.paginator = this.paginator;
+   // this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
 
   }
 
