@@ -5,9 +5,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+const index = require('./routes/index');
+const users = require('./routes/users');
 const file = require('./routes/file');
+
+const navUrl = require('./routes/navigateUrl');
 
 var app = express();
 
@@ -31,6 +33,7 @@ app.use(function (req, res, next) {
 
 app.use('/', index);
 app.use('/api/file', file);
+app.use('/api/url', navUrl);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
