@@ -8,6 +8,7 @@ import {UrlFinderService} from "../../url-finder.service";
 })
 export class UrlTrackerComponent implements OnInit {
   url = '';
+  html='';
 
   constructor(private urlFinder: UrlFinderService) { }
 
@@ -18,7 +19,8 @@ export class UrlTrackerComponent implements OnInit {
     if(this.url && this.url.length>0){
       this.urlFinder.navigateUrl(this.url)
         .subscribe((data)=>{
-          alert('got url:' + data);
+          alert('got url:'+ JSON.stringify( data,null,2));
+          this.html= data.data;
         });
     }
 

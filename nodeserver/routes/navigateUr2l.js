@@ -14,6 +14,8 @@ var crawler = (url)=>{
 					console.log(error);
 				}else{
 					var $ = res.$;
+					console.log('a', $.get('a'));
+					$.getElementsByClassName('a').forEach((el)=>{ console.log('el', el);})
 					resolve($.html());
 
 				}
