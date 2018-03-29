@@ -9,6 +9,7 @@ import { UrlTrackerComponent } from './crawler/components/url-tracker/url-tracke
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import {FormsModule} from "@angular/forms";
 import {UrlFinderService} from "./crawler/url-finder.service";
+import {WatsonModule} from "./watson/watson.module";
 
 
 
@@ -22,10 +23,13 @@ import {UrlFinderService} from "./crawler/url-finder.service";
     BrowserModule,
     FileModule,
     FormsModule,
-    routingPaths
+    routingPaths,
+    WatsonModule
 
   ],
-  providers: [UrlFinderService],
+  providers: [
+    UrlFinderService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
