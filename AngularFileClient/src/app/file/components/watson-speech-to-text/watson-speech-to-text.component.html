@@ -1,16 +1,19 @@
 <div class="card m-2">
   <div class="card-header">
-    <h2>Select File</h2>
+    <h5>Select Audio File -- Watson Speech to Text</h5>
   </div>
   <div class="card-body">
     <div class="row">
       <div class="col">
         <div class="form-group">
-          <label for="upload">Upload File</label>
+          <label for="upload">Audio file</label>
           <input type="file" name="upload" id="upload" class="form-control"
                  (change)="handleFileInput($event.target.files)">
         </div>
       </div>
+    </div>
+    <div class="row" *ngIf="file && file.type && file.type.startsWith('audio')">
+       <button class="btn btn-secondary m-3">Send to STT</button>
     </div>
   </div>
   <div class="card-footer">
