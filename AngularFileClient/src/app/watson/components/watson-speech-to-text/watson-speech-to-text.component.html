@@ -4,17 +4,27 @@
   </div>
   <div class="card-body">
     <div class="form-group">
-      <label>Auth Header</label>
+      <label>User Name</label>
       <input class="form-control"
              type="text"
-             [(ngModel)]="authHeader">
+             [(ngModel)]="username">
     </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input class="form-control"
+             type="text"
+             [(ngModel)]="password">
+    </div>
+    <button class="btn btn-success m-2"
+            type="button"
+            (click)="onAuthenticate()">Authenticate</button>
     <div class="form-group">
       <label for="upload">Audio file</label>
       <input type="file" name="upload" id="upload" class="form-control"
              (change)="handleFileInput($event.target.files)">
     </div>
     <button class="btn btn-secondary m-3"
+            type="button"
             [disabled]="!(file && file.type && file.type.startsWith('audio'))"
             (click)="onSpeechToText()">
       Send to Speech To Text

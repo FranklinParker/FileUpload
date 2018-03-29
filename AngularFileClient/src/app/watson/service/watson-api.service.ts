@@ -1,13 +1,45 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs/Observable";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 
 @Injectable()
 export class WatsonApiService {
 
   constructor(private http: HttpClient) { }
 
-  postToSpeechToText(file: File, authHeader:string): Observable<any> {
+  /**
+   * authentic
+   * headers:  {
+        'Authorization': authHeader,
+        'Content-Type': 'audio/wav',
+        "X-Testing" : "testing",
+        'Access-Control-Allow-Origin':'*',
+        "Access-Control-Allow-Methods": "POST"
+      }
+   *
+   * @param {string} username
+   * @param {string} password
+   * @returns {Observable<Object>}
+   */
+  authenticate(username: string, password: string){
+    let params = new HttpParams();
+    params.set('username',username);
+    params.set('password', password);
+    let headers =  {
+
+
+        "Access-Control-Allow-Methods": "POST"
+    }
+
+
+    return this.http.get(
+      'https://stream.watsonplatform.net/speech-to-text/api/v1/sessions');
+    // ,
+    //   null,
+    //   {params: params, headers} );
+  }
+
+  postToSpeechToText(file: File): Observable<any> {
     var config =  {
       headers:  {
         //'Authorization': authHeader,

@@ -8,7 +8,8 @@ import {WatsonApiService} from "../../service/watson-api.service";
 })
 export class WatsonSpeechToTextComponent implements OnInit {
   file: File;
-  authHeader: string = 'test';
+  username: string = 'test';
+  password: string = 'test';
 
   constructor(private watsonApiService: WatsonApiService) { }
 
@@ -26,9 +27,24 @@ export class WatsonSpeechToTextComponent implements OnInit {
   }
 
   onSpeechToText(){
-    this.watsonApiService.postToSpeechToText(this.file, this.authHeader)
+    try{
+      this.watsonApiService.postToSpeechToText(this.file)
+        .subscribe((result)=>{
+          console.log('stt', result);
+        });
+    }catch (e){
+      console.log('error', e);
+
+    }
+
+  }
+
+  onAuthenticate(){
+    this.watsonApiService
+      .authenticate(this.username, this.password)
       .subscribe((result)=>{
-        console.log('stt', result);
+        console.log('auth', result);
+
       });
   }
 
