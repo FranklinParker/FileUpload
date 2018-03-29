@@ -3,7 +3,12 @@
     <h5>Select Audio File -- Watson Speech to Text</h5>
   </div>
   <div class="card-body">
-
+    <div class="form-group">
+      <label>Auth Header</label>
+      <input class="form-control"
+             type="text"
+             [(ngModel)]="authHeader">
+    </div>
     <div class="form-group">
       <label for="upload">Audio file</label>
       <input type="file" name="upload" id="upload" class="form-control"
