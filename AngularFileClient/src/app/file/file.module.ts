@@ -8,6 +8,7 @@ import { ExcelResultsComponent } from './components/excel-results/excel-results.
 import {AngularMaterialModule} from "../angular-material/angular-material.module";
 import {MatDialog, MatDialogRef} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { WatsonSpeechToTextComponent } from './components/watson-speech-to-text/watson-speech-to-text.component';
 
 @NgModule({
   imports: [
@@ -18,8 +19,14 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     BrowserAnimationsModule
 
   ],
-  declarations: [FileUploadComponent, ExcelResultsComponent],
-  exports: [FileUploadComponent],
+  declarations: [
+    FileUploadComponent,
+    ExcelResultsComponent,
+    WatsonSpeechToTextComponent],
+  exports: [
+    FileUploadComponent,
+    WatsonSpeechToTextComponent
+  ],
   providers:[FileUploadService,
     MatDialog],
   entryComponents: [
