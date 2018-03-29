@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {WatsonApiService} from "./service/watson-api.service";
 import {WatsonSpeechToTextComponent} from "./components/watson-speech-to-text/watson-speech-to-text.component";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
   declarations: [
     WatsonSpeechToTextComponent

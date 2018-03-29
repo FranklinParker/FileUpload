@@ -12,8 +12,11 @@
         </div>
       </div>
     </div>
-    <div class="row" *ngIf="file && file.type && file.type.startsWith('audio')">
-       <button class="btn btn-secondary m-3">Send to STT</button>
+    <div class="row">
+       <button class="btn btn-secondary m-3"
+               [disabled]="!(file && file.type && file.type.startsWith('audio'))"
+               (click)="onSpeechToText()">
+         Send to Speech To Text</button>
     </div>
   </div>
   <div class="card-footer">

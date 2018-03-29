@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {WatsonApiService} from "../../service/watson-api.service";
 
 @Component({
   selector: 'app-watson-speech-to-text',
@@ -7,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WatsonSpeechToTextComponent implements OnInit {
   file: File;
-  constructor() { }
+
+  constructor(private watsonApiService: WatsonApiService) { }
 
   ngOnInit() {
   }
@@ -20,6 +22,13 @@ export class WatsonSpeechToTextComponent implements OnInit {
   handleFileInput(files: FileList) {
     this.file = files.item(0);
 
+  }
+
+  onSpeechToText(){
+    this.watsonApiService.postToSpeechToText(this.file)
+      .subscribe((result)=>{
+        console.log('stt', result);
+      });
   }
 
 }
