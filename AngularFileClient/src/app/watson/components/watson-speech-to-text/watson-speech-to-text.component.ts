@@ -8,6 +8,7 @@ import {WatsonApiService} from "../../service/watson-api.service";
 })
 export class WatsonSpeechToTextComponent implements OnInit {
   file: File;
+  authHeader: string;
 
   constructor(private watsonApiService: WatsonApiService) { }
 

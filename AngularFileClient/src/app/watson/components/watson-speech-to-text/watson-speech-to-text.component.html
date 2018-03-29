@@ -3,21 +3,17 @@
     <h5>Select Audio File -- Watson Speech to Text</h5>
   </div>
   <div class="card-body">
-    <div class="row">
-      <div class="col">
-        <div class="form-group">
-          <label for="upload">Audio file</label>
-          <input type="file" name="upload" id="upload" class="form-control"
-                 (change)="handleFileInput($event.target.files)">
-        </div>
-      </div>
+
+    <div class="form-group">
+      <label for="upload">Audio file</label>
+      <input type="file" name="upload" id="upload" class="form-control"
+             (change)="handleFileInput($event.target.files)">
     </div>
-    <div class="row">
-       <button class="btn btn-secondary m-3"
-               [disabled]="!(file && file.type && file.type.startsWith('audio'))"
-               (click)="onSpeechToText()">
-         Send to Speech To Text</button>
-    </div>
+    <button class="btn btn-secondary m-3"
+            [disabled]="!(file && file.type && file.type.startsWith('audio'))"
+            (click)="onSpeechToText()">
+      Send to Speech To Text
+    </button>
   </div>
   <div class="card-footer">
     <div class="row">
