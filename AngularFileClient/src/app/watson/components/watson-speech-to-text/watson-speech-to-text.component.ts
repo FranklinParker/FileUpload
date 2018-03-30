@@ -42,9 +42,9 @@ export class WatsonSpeechToTextComponent implements OnInit {
 
   onAuthenticate(){
     this.watsonApiService
-      .authenticate(this.username, this.password)
+      .getSession(this.username, this.password)
       .subscribe((result)=>{
-        console.log('auth', result);
+        console.log('session:', result);
 
       });
   }

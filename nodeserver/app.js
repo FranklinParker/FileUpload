@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 const index = require('./routes/index');
 const users = require('./routes/users');
 const file = require('./routes/file');
+const watson = require('./routes/watson');
 
 const navUrl = require('./routes/navigateUrl');
 
@@ -34,6 +35,7 @@ app.use(function (req, res, next) {
 app.use('/', index);
 app.use('/api/file', file);
 app.use('/api/url', navUrl);
+app.use('/api/watson', watson);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
