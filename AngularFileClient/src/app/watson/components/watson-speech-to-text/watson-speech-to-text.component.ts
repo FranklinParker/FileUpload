@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {WatsonApiService} from "../../service/watson-api.service";
+import {WatsonSessionModel} from "../../model/watson-session-model";
 
 @Component({
   selector: 'app-watson-speech-to-text',
@@ -10,6 +11,7 @@ export class WatsonSpeechToTextComponent implements OnInit {
   file: File;
   username: string = 'franklin';
   password: string = 'test';
+  authResult: WatsonSessionModel;
 
   constructor(private watsonApiService: WatsonApiService) { }
 
@@ -26,10 +28,14 @@ export class WatsonSpeechToTextComponent implements OnInit {
 
   }
 
+  /**
+   * invoke speech to text
+   *
+   *
+   */
   onSpeechToText(){
     try{
-      this.watsonApiService.postToSpeechToText(this.file,
-        this.username, this.password)
+      this.watsonApiService.postToSpeechToTextSession(this.file)
         .subscribe((result)=>{
           console.log('stt', result);
         });
@@ -40,13 +46,29 @@ export class WatsonSpeechToTextComponent implements OnInit {
 
   }
 
-  onAuthenticate(){
+  /**
+   * gets the session for the speech to text
+   *
+   */
+  onGetSession(){
     this.watsonApiService
       .getSession(this.username, this.password)
-      .subscribe((result)=>{
-        console.log('session:', result);
+      .subscribe((result:WatsonSessionModel)=>{
+        this.authResult = result;
 
       });
+  }
+
+  /**
+   * Only allow speech to text if the session exists
+   * && valid wav file selected
+   *
+   * @returns {boolean}
+   */
+  get disablePostSpeechToText(){
+    return !(this.authResult &&
+      this.authResult.data.recognize && this.file
+      && this.file.type.startsWith('audio'));
   }
 
 }

@@ -2,10 +2,15 @@ import {Injectable} from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
+import 'rxjs/add/operator/map';
+import {WatsonSessionModel} from "../model/watson-session-model";
+
 
 @Injectable()
 export class WatsonApiService {
   apiUrl = environment.apiUrl;
+  session: string;
+  recognizeUrl: string;
 
   constructor(private http: HttpClient) {
   }
@@ -17,9 +22,15 @@ export class WatsonApiService {
    * @param {string} password
    */
 
-  getSession(username: string, password: string) {
+  getSession(username: string, password: string): Observable<WatsonSessionModel> {
     return this.http.get(this.apiUrl +'/watson/session/'+
-    username + '/' + password);
+    username + '/' + password)
+      .map((resp:WatsonSessionModel)=>{
+        this.session  = resp.data.session_id;
+        console.log('session: ' + this.session);
+        this.recognizeUrl = resp.data.recognize;
+        return resp;
+      });
 
   }
 
@@ -64,17 +75,11 @@ export class WatsonApiService {
    */
 
   postToSpeechToTextSession(file: File): Observable<any> {
-    var config = {
-      headers: {
-        //'Authorization': authHeader,
-        'Content-Type': 'audio/wav'
 
-      }
-    };
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post('https://stream.watsonplatform.net/speech-to-text/api/v1/sessions/513772e7a6c26455abe4ad4047d255de/recognize',
-      formData, config);
+    return this.http.post(this.recognizeUrl,
+      formData);
   }
 
   postToSpeechToText(file: File, username: string,

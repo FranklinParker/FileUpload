@@ -1,4 +1,3 @@
-
 var express = require('express');
 var router = express.Router();
 const axios = require('axios');
@@ -14,22 +13,24 @@ router.post('/file', upload.single('file'), function (req, res, next) {
 
 });
 
-router.get('/session/:username/:password', async function(req, res,next) {
-	try{
-		const username  = req.params.username;
+router.get('/session/:username/:password', async function (req, res, next) {
+	try {
+		const username = req.params.username;
 		const password = req.params.password;
 		const result = await getWatsonSession(username, password);
-		res.send({ result: 'text',
-		       data: result.data});
-	} catch (e){
-		res.send({ result: 'error'});
+		res.send({
+			result: 'success',
+			data: result.data
+		});
+	} catch (e) {
+		res.send({result: 'error', data: {errorMessage: e.message}});
 	}
 
 });
 
 module.exports = router;
 
-const getWatsonSession = async (username, password)=> {
+const getWatsonSession = async (username, password) => {
 	return axios({
 		method: 'post',
 		url: 'https://stream.watsonplatform.net/speech-to-text/api/v1/sessions',
@@ -41,23 +42,20 @@ const getWatsonSession = async (username, password)=> {
 }
 
 
-
-const testSesssion = async () =>{
-	try{
+const testSesssion = async () => {
+	try {
 		const result = await
 			getWatsonSession('username', 'password');
-		console.log('got result:'+  JSON.stringify(result.data,null, 2));
-		console.log('session_id:' +  result.data.session_id)
+		console.log('got result:' + JSON.stringify(result.data, null, 2));
+		console.log('session_id:' + result.data.session_id)
 
-	}catch (e){
+	} catch (e) {
 		console.log('error', e);
 	}
 }
 
 
-
-
-const getWatsonfile = (username, password)=> {
+const getWatsonfile = (username, password) => {
 	axios({
 		method: 'post',
 		url: 'https://stream.watsonplatform.net/speech-to-text/api/v1/recognize',
@@ -67,14 +65,13 @@ const getWatsonfile = (username, password)=> {
 		},
 		headers: {'Content-Type': 'audio/wav'}
 
-	}).then((result)=>{
-		console.log('tested session:' , result);
+	}).then((result) => {
+		console.log('tested session:', result);
 
-	}).catch(err=> console.log('err', err));
+	}).catch(err => console.log('err', err));
 }
 
 //getWatsonfile();
-
 
 
 // url: '/user',
