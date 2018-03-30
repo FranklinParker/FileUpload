@@ -39,10 +39,37 @@ export class WatsonApiService {
     //   {params: params, headers} );
   }
 
-  postToSpeechToText(file: File): Observable<any> {
+  /**
+   * using a session
+   *
+   *
+   * @param {File} file
+   * @returns {Observable<any>}
+   */
+
+  postToSpeechToTextSession(file:File): Observable<any> {
     var config =  {
       headers:  {
         //'Authorization': authHeader,
+        'Content-Type': 'audio/wav'
+
+      }
+    };
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post('https://stream.watsonplatform.net/speech-to-text/api/v1/sessions/513772e7a6c26455abe4ad4047d255de/recognize',
+      formData, config);
+  }
+
+  postToSpeechToText(file: File, username:string,
+                     password: string): Observable<any> {
+    let headers = new Headers();
+    headers.set('Authorization',
+      btoa(username +':' +password));
+    headers.set('Content-Type', 'audio/wav');
+    var config =  {
+      headers:  {
+        'Authorization': btoa(username +':' +password),
         'Content-Type': 'audio/wav'
 
       }
