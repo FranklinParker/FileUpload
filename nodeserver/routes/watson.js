@@ -11,8 +11,9 @@ router.post('/speechToText/:username/:password', upload.single('file'), async (r
 	console.log('file', req.file);
 	const username = req.params.username;
 	const password = req.params.password;
+
 	try {
-		const response = await getWatsonfile(username, password);
+		const response = await getWatsonfile(username, password, req.file);
 		res.send({message: 'success'});
 	} catch (e) {
 		console.log('error', e);
@@ -63,8 +64,11 @@ const testSesssion = async () => {
 }
 
 
-const getWatsonfile = async (username, password) => {
+const getWatsonfile = async (username, password,file) => {
+	var fileArray = [];
 
+
+	fileArray.push(fs.createReadStream(file.path));
 	return axios({
 		method: 'post',
 		url: 'https://stream.watsonplatform.net/speech-to-text/api/v1/recognize',
@@ -72,7 +76,11 @@ const getWatsonfile = async (username, password) => {
 			username: username,
 			password: password
 		},
-		headers: {'Content-Type': 'audio/wav'}
+		headers: {'Content-Type': 'audio/wav'},
+		data: {
+			Stream: fileArray
+		}
+
 
 	});
 }
