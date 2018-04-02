@@ -84,23 +84,22 @@ export class WatsonApiService {
 
   postToSpeechToText(file: File, username: string,
                      password: string): Observable<any> {
-    let headers = new Headers();
-    headers.set('Authorization',
-      btoa(username + ':' + password));
-    headers.set('Content-Type', 'audio/wav');
-    var config = {
-      headers: {
-        'Authorization': btoa(username + ':' + password),
-        'Content-Type': 'audio/wav'
-
-      }
-    };
+    // let headers = new Headers();
+    // headers.set('Authorization',
+    //   btoa(username + ':' + password));
+    // headers.set('Content-Type', 'audio/wav');
+    // var config = {
+    //   headers: {
+    //     'Authorization': btoa(username + ':' + password),
+    //     'Content-Type': 'audio/wav'
+    //
+    //   }
+    // };
     const formData = new FormData();
     formData.append('file', file);
     return this.http
-      .post('https://stream.watsonplatform.net/speech-to-text/api/v1/recognize'
-        , formData,
-        config);
+      .post(this.apiUrl + '/watson/speechToText/' + username + '/' + password
+        , formData);
 
   }
 

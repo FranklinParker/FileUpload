@@ -35,7 +35,7 @@ export class WatsonSpeechToTextComponent implements OnInit {
    */
   onSpeechToText(){
     try{
-      this.watsonApiService.postToSpeechToTextSession(this.file)
+      this.watsonApiService.postToSpeechToText(this.file,this.username, this.password)
         .subscribe((result)=>{
           console.log('stt', result);
         });

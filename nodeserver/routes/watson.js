@@ -7,14 +7,15 @@ const fs = require('fs');
 const upload = multer({dest: '../public/images'});
 
 
-router.post('/speechToText', upload.single('file'), async (req, res, next) => {
+router.post('/speechToText/:username/:password', upload.single('file'), async (req, res, next) => {
 	console.log('file', req.file);
 	const username = req.params.username;
 	const password = req.params.password;
 	try {
 		const response = await getWatsonfile(username, password);
-		res.send({message: ''});
+		res.send({message: 'success'});
 	} catch (e) {
+		console.log('error', e);
 		res.send({result: 'error', data: {errorMessage: e.message}});
 	}
 
@@ -63,6 +64,7 @@ const testSesssion = async () => {
 
 
 const getWatsonfile = async (username, password) => {
+
 	return axios({
 		method: 'post',
 		url: 'https://stream.watsonplatform.net/speech-to-text/api/v1/recognize',

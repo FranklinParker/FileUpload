@@ -1,6 +1,7 @@
 /nodeserver/node_modules
 /nodeserver/public/images
 /nodeserver/public/fileupload
+public/images
 *.iml
 .idea/jsLibraryMappings.xml
 .idea/jsLinters/jslint.xml
