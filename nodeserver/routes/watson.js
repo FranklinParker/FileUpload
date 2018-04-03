@@ -1,24 +1,32 @@
 var express = require('express');
 var router = express.Router();
 const axios = require('axios');
-
+const speechToTextService  = require('../service/watsonSpeechToText').speechToTextService;
+const FormData = require('form-data');
 var multer = require('multer');
 const fs = require('fs');
 const upload = multer({dest: '../public/images'});
-
+const fileToUpload = '//Users/franklinparker/documents/GBSLendingSolutions/SpeechToText/mortgage.wav';
 
 router.post('/speechToText/:username/:password', upload.single('file'), async (req, res, next) => {
 	console.log('file', req.file);
 	const username = req.params.username;
 	const password = req.params.password;
+	speechToTextService.speechToText(username, password)
+		.then((result)=>{
+			  res.send({message: 'success', result: result });
+			})
+		.catch(err=>{
+			res.send({message: 'error', result: err });
+		});
 
-	try {
-		const response = await getWatsonfile(username, password, req.file);
-		res.send({message: 'success'});
-	} catch (e) {
-		console.log('error', e);
-		res.send({result: 'error', data: {errorMessage: e.message}});
-	}
+	// try {
+	// 	const response = await getWatsonfile(username, password, req.file);
+	// 	res.send({message: 'success'});
+	// } catch (e) {
+	// 	console.log('error', e);
+	// 	res.send({result: 'error', data: {errorMessage: e.message}});
+	// }
 
 });
 
@@ -64,11 +72,20 @@ const testSesssion = async () => {
 }
 
 
+
 const getWatsonfile = async (username, password,file) => {
 	var fileArray = [];
 
+  console.log('file path:'  + file.path);
+	//fileArray.push(fs.createReadStream(file.path));
+	//let data = fs.readFileSync(file.path);
+	const data = new FormData();
+	// fs.createReadStream('./resources/speech.wav')
+	// 	.pipe(speechToText.createRecognizeStream({ content_type: 'audio/l16; rate=44100' }))
+	// 	.pipe(fs.createWriteStream('./transcription.txt'));
 
-	fileArray.push(fs.createReadStream(file.path));
+	data.append('Stream', fs.createReadStream(fileToUpload));
+
 	return axios({
 		method: 'post',
 		url: 'https://stream.watsonplatform.net/speech-to-text/api/v1/recognize',
@@ -76,10 +93,20 @@ const getWatsonfile = async (username, password,file) => {
 			username: username,
 			password: password
 		},
-		headers: {'Content-Type': 'audio/wav'},
-		data: {
-			Stream: fileArray
-		}
+		headers: {'Content-Type': 'audio/wav','Cache-Control': 'no-cache'},
+		data: data
+		  // data :{
+		  // 	Buffer: fs.createBuffer(fileToUpload)
+		  // }
+		// - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams
+// // - Browser only: FormData, File, Blob
+// // - Node only: Stream, Buffer
+    // },
+		// formData: {
+			// File: fs.createReadStream(file.path)
+		// }
+		// //file: fs.createBuffer(file.path)
+
 
 
 	});
