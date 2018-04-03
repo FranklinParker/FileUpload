@@ -6,24 +6,27 @@ var file = '/Users/franklinparker/documents/GBSLendingSolutions/SpeechToText/mor
 // or streaming
 const speechToText = (username, password, file) => {
 	return new Promise((resolve, reject) => {
-		var speechToText = new SpeechToTextV1({
-			username: username,
-			password: password,
-			url: 'https://stream.watsonplatform.net/speech-to-text/api/'
-		});
-		var params = {
-			// From file
-			audio: fs.createReadStream(file.path),
-			content_type: 'audio/l16; rate=44100'
-		};
+		try {
+			var speechToText = new SpeechToTextV1({
+				username: username,
+				password: password,
+				url: 'https://stream.watsonplatform.net/speech-to-text/api/'
+			});
+			var params = {
+				// From file
+				audio: fs.createReadStream(file.path),
+				content_type: 'audio/l16; rate=44100',
+			};
 
-		speechToText.recognize(params, function (err, res) {
-			if (err)
-				reject(err);
-			else
-				resolve(JSON.stringify(res, null, 2));
-		});
-
+			speechToText.recognize(params, function (err, res) {
+				if (err)
+					reject(err);
+				else
+					resolve(res);
+			});
+		}catch(e){
+			reject(e);
+		}
 
 	});
 }
