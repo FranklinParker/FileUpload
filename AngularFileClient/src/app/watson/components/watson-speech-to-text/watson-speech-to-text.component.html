@@ -17,13 +17,14 @@
     </div>
     <button class="btn btn-success m-2"
             type="button"
-            (click)="onGetSession()">Get Session</button>
+            (click)="onGetSession()">Get Session
+    </button>
     <div class="row">
-      <div class="col" *ngIf="authResult && authResult.result==='success'" >
+      <div class="col" *ngIf="authResult && authResult.result==='success'">
         <h3>Credentials are valid - Session {{ authResult.data.session_id}}</h3>
         {{authResult| json}}
       </div>
-      <div class="col" *ngIf="authResult && authResult.result==='error'" >
+      <div class="col" *ngIf="authResult && authResult.result==='error'">
         <h3>Credentials are invalid - Error: {{authResult.data.errorMessage}}</h3>
       </div>
     </div>
@@ -38,6 +39,13 @@
             (click)="onSpeechToText()">
       Send to Speech To Text
     </button>
+    <div class="row">
+      <div class="col" *ngIf="sttResult">
+        <h3>Response</h3>
+        {{sttResult| json}}
+      </div>
+    </div>
+
   </div>
   <div class="card-footer">
     <div class="row">

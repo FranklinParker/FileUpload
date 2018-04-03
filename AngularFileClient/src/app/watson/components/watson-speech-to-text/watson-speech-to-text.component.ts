@@ -12,6 +12,7 @@ export class WatsonSpeechToTextComponent implements OnInit {
   username: string = 'franklin';
   password: string = 'test';
   authResult: WatsonSessionModel;
+  sttResult: string;
 
   constructor(private watsonApiService: WatsonApiService) { }
 
@@ -38,6 +39,7 @@ export class WatsonSpeechToTextComponent implements OnInit {
       this.watsonApiService.postToSpeechToText(this.file,this.username, this.password)
         .subscribe((result)=>{
           console.log('stt', result);
+          this.sttResult = result;
         });
     }catch (e){
       console.log('error', e);

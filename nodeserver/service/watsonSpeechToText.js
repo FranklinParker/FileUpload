@@ -4,7 +4,7 @@ var file = '/Users/franklinparker/documents/GBSLendingSolutions/SpeechToText/mor
 
 
 // or streaming
-const speechToText = (username, password) => {
+const speechToText = (username, password, file) => {
 	return new Promise((resolve, reject) => {
 		var speechToText = new SpeechToTextV1({
 			username: username,
@@ -13,7 +13,7 @@ const speechToText = (username, password) => {
 		});
 		var params = {
 			// From file
-			audio: fs.createReadStream(file),
+			audio: fs.createReadStream(file.path),
 			content_type: 'audio/l16; rate=44100'
 		};
 

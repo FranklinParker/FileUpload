@@ -12,9 +12,9 @@ router.post('/speechToText/:username/:password', upload.single('file'), async (r
 	console.log('file', req.file);
 	const username = req.params.username;
 	const password = req.params.password;
-	speechToTextService.speechToText(username, password)
+	speechToTextService.speechToText(username, password, req.file)
 		.then((result)=>{
-			  res.send({message: 'success', result: result });
+			  res.send({message: 'success', usingFile:true, result: result });
 			})
 		.catch(err=>{
 			res.send({message: 'error', result: err });
