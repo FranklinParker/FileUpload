@@ -6,8 +6,12 @@ const FormData = require('form-data');
 var multer = require('multer');
 const fs = require('fs');
 const upload = multer({dest: '../public/images'});
-const fileToUpload = '//Users/franklinparker/documents/GBSLendingSolutions/SpeechToText/mortgage.wav';
+const fileToUpload = '/Users/franklinparker/documents/GBSLendingSolutions/SpeechToText/mortgage.wav';
 
+/**
+ * gets the stt result for file passed in
+ *
+ */
 router.post('/speechToText/:username/:password', upload.single('file'), async (req, res, next) => {
 	console.log('file', req.file);
 	const username = req.params.username;
@@ -20,16 +24,32 @@ router.post('/speechToText/:username/:password', upload.single('file'), async (r
 			res.send({message: 'error', result: err });
 		});
 
-	// try {
-	// 	const response = await getWatsonfile(username, password, req.file);
-	// 	res.send({message: 'success'});
-	// } catch (e) {
-	// 	console.log('error', e);
-	// 	res.send({result: 'error', data: {errorMessage: e.message}});
-	// }
 
 });
 
+/**
+ * call the speech to text api
+ *
+ */
+router.post('/speechToTextApi/:username/:password', upload.single('file'), async (req, res, next) => {
+	console.log('file', req.file);
+	const username = req.params.username;
+	const password = req.params.password;
+
+	 try {
+	 	const response = await getWatsonfile(username, password, req.file);
+	 	res.send({message: 'success'});
+	 } catch (e) {
+	 	console.log('error', e);
+	 	res.send({result: 'error', data: {errorMessage: e.message}});
+	 }
+
+});
+/**
+ * gets a session id for usename and password
+ *
+ *
+ */
 router.get('/session/:username/:password', async function (req, res, next) {
 	try {
 		const username = req.params.username;
@@ -47,6 +67,13 @@ router.get('/session/:username/:password', async function (req, res, next) {
 
 module.exports = router;
 
+/**
+ * method to return a session id
+ *
+ * @param username
+ * @param password
+ * @returns {Promise<*>}
+ */
 const getWatsonSession = async (username, password) => {
 	return axios({
 		method: 'post',
@@ -58,19 +85,14 @@ const getWatsonSession = async (username, password) => {
 	});
 }
 
-
-const testSesssion = async () => {
-	try {
-		const result = await
-			getWatsonSession('username', 'password');
-		console.log('got result:' + JSON.stringify(result.data, null, 2));
-		console.log('session_id:' + result.data.session_id)
-
-	} catch (e) {
-		console.log('error', e);
-	}
-}
-
+/**
+ * get the stt results from passed in file
+ *
+ * @param username
+ * @param password
+ * @param file
+ * @returns {Promise<*>}
+ */
 
 
 const getWatsonfile = async (username, password,file) => {

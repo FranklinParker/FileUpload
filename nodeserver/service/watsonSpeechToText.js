@@ -15,9 +15,8 @@ const speechToText = (username, password, file) => {
 			var params = {
 				// From file
 				audio: fs.createReadStream(file.path),
-				content_type: 'audio/l16; rate=44100',
+				content_type: file.mimetype
 			};
-
 			speechToText.recognize(params, function (err, res) {
 				if (err)
 					reject(err);
